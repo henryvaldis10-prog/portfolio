@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henry Valdis — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0A0A0A;
+  --bg-card: #111111;
+  --bg-card-hover: #1A1A1A;
+  --accent: #E8A44A;
+  --accent-dim: #C4882E;
+  --text: #F0EDE6;
+  --text-muted: #8A8780;
+  --text-dim: #5A5955;
+  --border: rgba(255,255,255,0.06);
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---- HERO ---- */
+.hero {
+  padding: 100px 0 80px;
+  position: relative;
+}
+
+.hero-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.2s;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.35s;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 560px;
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.5s;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.65s;
+}
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 40px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* ---- SECTION HEADERS ---- */
+.section {
+  padding: 80px 0;
+}
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 48px;
+}
+
+/* ---- SERVICES ---- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 32px;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.service-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(232,164,74,0.15);
+  transform: translateY(-4px);
+}
+
+.service-card:hover::before { opacity: 1; }
+
+.service-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(232,164,74,0.08);
+  border: 1px solid rgba(232,164,74,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 24px;
+  color: var(--accent);
+}
+
+.service-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.service-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ---- PROJECTS ---- */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 700px) {
+  .projects-grid { grid-template-columns: 1fr; }
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.project-card:hover {
+  border-color: rgba(232,164,74,0.15);
+  transform: translateY(-4px);
+}
+
+.project-preview {
+  width: 100%;
+  aspect-ratio: 16/10;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-preview-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--text-dim);
+}
+
+.project-preview-inner.preview-1 {
+  background: linear-gradient(135deg, #1a1512, #2a1f15);
+}
+.project-preview-inner.preview-2 {
+  background: linear-gradient(135deg, #111518, #0f1a1f);
+}
+.project-preview-inner.preview-3 {
+  background: linear-gradient(135deg, #18120e, #231a12);
+}
+.project-preview-inner.preview-4 {
+  background: linear-gradient(135deg, #12150f, #1a2015);
+}
+
+.project-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.project-info {
+  padding: 28px 28px 32px;
+}
+
+.project-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.project-info p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.project-meta {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.project-meta span {
+  font-size: 12px;
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+/* ---- PROCESS ---- */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 700px) {
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+.step {
+  text-align: center;
+  padding: 32px 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-card);
+  position: relative;
+}
+
+.step-num {
+  font-family: var(--serif);
+  font-size: 48px;
+  color: rgba(232,164,74,0.15);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.step h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.step p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ---- NICHES ---- */
+.niches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.niche-pill {
+  background: rgba(232,164,74,0.06);
+  border: 1px solid rgba(232,164,74,0.12);
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.niche-pill:hover {
+  background: rgba(232,164,74,0.12);
+  border-color: rgba(232,164,74,0.25);
+}
+
+/* ---- CTA ---- */
+.cta-section {
+  text-align: center;
+  padding: 100px 0 120px;
+}
+
+.cta-section h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.cta-section h2 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.cta-section p {
+  color: var(--text-muted);
+  font-size: 17px;
+  margin-bottom: 36px;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #0A0A0A;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 16px 40px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.cta-btn:hover {
+  background: #f0b45e;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(232,164,74,0.25);
+}
+
+/* ---- FOOTER ---- */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* ---- ANIMATIONS ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">Henry Valdis — Digital Growth</div>
+    <h1>I build websites<br>& generate <em>leads</em><br>for local businesses</h1>
+    <p class="hero-desc">Web design, lead generation, and business automation for service-based businesses that want to get found online and convert more customers.</p>
+
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Demo sites built</div>
+      </div>
+      <div>
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Niches served</div>
+      </div>
+      <div>
+        <div class="stat-num">AB</div>
+        <div class="stat-label">Based in Alberta</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section reveal">
+    <div class="section-label">What I do</div>
+    <h2 class="section-title">Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#9783;</div>
+        <h3>Website Design & Build</h3>
+        <p>Custom, conversion-focused websites for local businesses. Clean, fast, mobile-first — designed to turn visitors into calls and bookings.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9672;</div>
+        <h3>Lead Generation</h3>
+        <p>Google Business Profile optimization, cold outreach systems, and local SEO strategies that bring real customers to your door.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9881;</div>
+        <h3>Business Automation</h3>
+        <p>CRM setup, automated follow-ups, review request sequences, and missed-call text-backs. Stop losing leads to slow response times.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9733;</div>
+        <h3>Ad Creative & Strategy</h3>
+        <p>Meta ad creative kits and campaign strategy for local service businesses. Get seen by the people in your area who need what you offer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section reveal">
+    <div class="section-label">Selected work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-preview">
+          <div class="project-preview-inner preview-1">Maple Nails</div>
+          <span class="project-tag">Nail Salon</span>
+        </div>
+        <div class="project-info">
+          <h3>Maple Nails — Airdrie</h3>
+          <p>Full website build for a local nail salon with online booking integration, service menu, and Google Business Profile setup.</p>
+          <div class="project-meta">
+            <span>Web Design</span>
+            <span>GBP Setup</span>
+            <span>Booking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-preview">
+          <div class="project-preview-inner preview-2">Northern HVAC</div>
+          <span class="project-tag">HVAC</span>
+        </div>
+        <div class="project-info">
+          <h3>Northern HVAC Services</h3>
+          <p>Website and lead capture system for an HVAC company. Integrated quote request forms, service area pages, and automated follow-up sequences.</p>
+          <div class="project-meta">
+            <span>Web Design</span>
+            <span>Lead Gen</span>
+            <span>Automation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-preview">
+          <div class="project-preview-inner preview-3">Casa del Sol</div>
+          <span class="project-tag">Restaurant</span>
+        </div>
+        <div class="project-info">
+          <h3>Casa del Sol — Calgary</h3>
+          <p>Restaurant website with menu display, reservation system, and Google Maps integration. Built to drive foot traffic from local search.</p>
+          <div class="project-meta">
+            <span>Web Design</span>
+            <span>Local SEO</span>
+            <span>Menu System</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-preview">
+          <div class="project-preview-inner preview-4">Pathway Immigration</div>
+          <span class="project-tag">Immigration</span>
+        </div>
+        <div class="project-info">
+          <h3>Pathway Immigration Consulting</h3>
+          <p>Professional website for an immigration consulting firm. Multi-page site with service breakdowns, consultation booking, and trust-building testimonial sections.</p>
+          <div class="project-meta">
+            <span>Web Design</span>
+            <span>Consultation Funnel</span>
+            <span>Trust Signals</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section reveal">
+    <div class="section-label">How I work</div>
+    <h2 class="section-title">Process</h2>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Discovery</h3>
+        <p>I research your business, competitors, and what your customers are searching for.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Build</h3>
+        <p>Custom website built around your brand, optimized for mobile and local search.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Launch</h3>
+        <p>Site goes live with GBP optimization, analytics, and lead capture in place.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Grow</h3>
+        <p>Ongoing lead gen, automations, and ad campaigns to keep customers coming in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NICHES -->
+  <section class="section reveal">
+    <div class="section-label">Industries I serve</div>
+    <h2 class="section-title">Niches</h2>
+    <div class="niches">
+      <span class="niche-pill">Nail Salons</span>
+      <span class="niche-pill">Barbershops</span>
+      <span class="niche-pill">HVAC</span>
+      <span class="niche-pill">Plumbing</span>
+      <span class="niche-pill">Roofing</span>
+      <span class="niche-pill">Electricians</span>
+      <span class="niche-pill">Restaurants</span>
+      <span class="niche-pill">Contractors</span>
+      <span class="niche-pill">Immigration Consulting</span>
+      <span class="niche-pill">Med Spas</span>
+      <span class="niche-pill">Auto Detailing</span>
+      <span class="niche-pill">Cleaning Services</span>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section reveal">
+    <h2>Let's build<br>something <em>together</em></h2>
+    <p>Open to collaborations, partnerships, and new projects.</p>
+    <a href="#" class="cta-btn">Get in touch</a>
+  </section>
+
+  <footer>
+    &copy; 2026 Henry Valdis — LimitlesX
+  </footer>
+
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
